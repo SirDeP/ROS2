@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: robot_description
+    relative_path: urdf/skyentific_robot.urdf.xacro
+  srdf:
+    relative_path: config/skyentific_robot.srdf
+  package_settings:
+    author_name: VW
+    author_email: v@w.com
+    generated_timestamp: 1759396826
