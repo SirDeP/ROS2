@@ -21,7 +21,7 @@
         <mesh filename="package://parol6/meshes/base_link.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        <color rgba="1 1 0 1" />
       </material>
     </visual>
     <collision>
@@ -43,7 +43,7 @@
         <mesh filename="package://parol6/meshes/L1.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        <color rgba="1 0.5 0 1" />
       </material>
     </visual>
     <collision>
@@ -72,7 +72,7 @@
         <mesh filename="package://parol6/meshes/L2.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        <color rgba="1 1 0 1" />
       </material>
     </visual>
     <collision>
@@ -101,7 +101,7 @@
         <mesh filename="package://parol6/meshes/L3.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        <color rgba="1 0.5 0 1" />
       </material>
     </visual>
     <collision>
@@ -130,7 +130,7 @@
         <mesh filename="package://parol6/meshes/L4.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        <color rgba="1 1 0 1" />
       </material>
     </visual>
     <collision>
@@ -159,7 +159,7 @@
         <mesh filename="package://parol6/meshes/L5.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        <color rgba="1 0.5 0 1" />
       </material>
     </visual>
     <collision>
