@@ -8,6 +8,18 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+find_package(rclcpp)
+find_package(visualization_msgs)
+
+add_executable(mesh_pub src/mesh_marker_publisher.cpp)
+
+ament_target_dependencies(mesh_pub rclcpp visualization_msgs)
+
+install(TARGETS
+  mesh_pub
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 install(
   DIRECTORY launch meshes urdf rviz
   DESTINATION share/${PROJECT_NAME}
