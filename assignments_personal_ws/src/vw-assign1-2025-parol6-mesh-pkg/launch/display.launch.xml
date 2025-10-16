@@ -6,6 +6,17 @@
   </node>
   <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui"/>
   <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_config_path)"/>
+  <node pkg="vw-assign1-2025-parol6-mesh-pkg" exec="mesh_pub">
+    <param name="board_location_x" value="0.1"/>
+    <param name="board_location_y" value="0.0"/>
+    <param name="board_location_z" value="0.0"/>
+    <param name="coin_holder_location_x" value="0.30"/>
+    <param name="coin_holder_location_y" value="0.08"/>
+    <param name="coin_holder_location_z" value="0.0"/>
+    <param name="coin_location_x" value="0.34"/>
+    <param name="coin_location_y" value="0.08"/>
+    <param name="coin_location_z" value="0.0"/>
+  </node>
   <!-- <arg name="model" />
   <param name="robot_description" textfile="$(find parol6)/urdf/parol6.urdf" />
   <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
