@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot name="connect4" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <link name="base_conn_4">
+    <visual>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/base_conn_4.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/base_conn_4.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <!-- <inertial><mass value="1"/><origin xyz="0 0 0"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial> -->
+  </link>
+
+  <link name="board_conn_4">
+    <visual>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/board_conn_4.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/board_conn_4.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <!-- <inertial><mass value="1"/><origin xyz="0 0 0"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial> -->
+  </link>
+
+  <link name="coin_holder">
+    <visual>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntjes_houder.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntjes_houder.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <!-- <inertial><mass value="0.5"/><origin xyz="0 0 0"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial> -->
+  </link>
+
+  <link name="coin">
+    <visual>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntje.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntje.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <!-- <inertial><mass value="0.1"/><origin xyz="0 0 0"/><inertia ixx="0.01" iyy="0.01" izz="0.01" ixy="0" ixz="0" iyz="0"/></inertial> -->
+  </link>
+
+  Fix all parts to base_conn_4; adjust relative poses
+  <joint name="board_to_base" type="fixed">
+    <parent link="base_conn_4"/>
+    <child link="board_conn_4"/>
+    <origin xyz="0.281 0.031 0.006" rpy="0 0 -0.226"/>
+  </joint>
+
+  <joint name="holder_to_base" type="fixed">
+    <parent link="base_conn_4"/>
+    <child link="coin_holder"/>
+    <origin xyz="0.00 0.08 0.00" rpy="1.574 0 0"/>
+  </joint>
+
+  <joint name="coin_to_base" type="fixed">
+    <parent link="base_conn_4"/>
+    <child link="coin"/>
+    <origin xyz="0.04 0.08 0.00" rpy="0 0 0"/>
+  </joint>
+
+</robot>

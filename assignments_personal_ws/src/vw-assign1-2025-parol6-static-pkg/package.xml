@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>vw-assign1-2025-parol6-static-pkg</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="v@w.com">sirdep</maintainer>
-  <license>TODO: License declaration</license>
+  <version>0.0.1</version>
+  <description>Static TF + Connect4 URDF</description>
+  <maintainer email="you@example.com">you</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <export>
-    <build_type>ament_cmake</build_type>
-  </export>
+  <depend>rclcpp</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>geometry_msgs</depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>xacro</exec_depend>
 </package>

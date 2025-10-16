@@ -6,9 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1/Description Topic1
+        - /Model_Parol61/Description Topic1
       Splitter Ratio: 0.5
-    Tree Height: 517
+    Tree Height: 546
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -65,42 +65,88 @@ Visualization Manager:
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
-        Link Tree Style: Links in Alphabetic Order
-        arm_link:
+        L1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        L2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        Link Tree Style: Links in Alphabetic Order
         base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        elbow_link:
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: Model_Parol6
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /connect4_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_conn_4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        forearm_link:
+        board_conn_4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        hand_link:
+        coin:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        shoulder_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        tool_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_link:
+        coin_holder:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -108,7 +154,7 @@ Visualization Manager:
       Mass Properties:
         Inertia: false
         Mass: false
-      Name: RobotModel
+      Name: Model_Connect4
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -120,21 +166,29 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        arm_link:
+        L1:
+          Value: true
+        L2:
+          Value: true
+        L3:
+          Value: true
+        L4:
+          Value: true
+        L5:
+          Value: true
+        L6:
+          Value: true
+        base_conn_4:
           Value: true
         base_link:
           Value: true
-        elbow_link:
+        board_conn_4:
           Value: true
-        forearm_link:
+        coin:
           Value: true
-        hand_link:
+        coin_holder:
           Value: true
-        shoulder_link:
-          Value: true
-        tool_link:
-          Value: true
-        wrist_link:
+        world:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -142,14 +196,21 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          shoulder_link:
-            arm_link:
-              elbow_link:
-                forearm_link:
-                  wrist_link:
-                    hand_link:
-                      tool_link:
+        world:
+          base_conn_4:
+            board_conn_4:
+              {}
+            coin:
+              {}
+            coin_holder:
+              {}
+          base_link:
+            L1:
+              L2:
+                L3:
+                  L4:
+                    L5:
+                      L6:
                         {}
       Update Interval: 0
       Value: true
@@ -217,7 +278,7 @@ Visualization Manager:
       Pitch: 0.3503985106945038
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.5403982400894165
+      Yaw: 0.5453982353210449
     Saved: ~
 Window Geometry:
   Displays:
@@ -225,7 +286,7 @@ Window Geometry:
   Height: 854
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000160000002a3fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006f00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730100000048000002a3000000f300fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000002a3fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000048000002a3000000c500fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004bd00000042fc0100000002fb0000000800540069006d00650100000000000004bd000002dc00fffffffb0000000800540069006d0065010000000000000450000000000000000000000356000002a300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000040000000000000160000002b4fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000002b4000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000002a3fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000048000002a3000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004bd00000042fc0100000002fb0000000800540069006d00650100000000000004bd0000026600fffffffb0000000800540069006d0065010000000000000450000000000000000000000357000002b400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -236,4 +297,4 @@ Window Geometry:
     collapsed: false
   Width: 1213
   X: 400
-  Y: 84
+  Y: 557
