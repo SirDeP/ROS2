@@ -15,7 +15,6 @@
         <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/base_conn_4.STL" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
-    <!-- <inertial><mass value="1"/><origin xyz="0 0 0"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial> -->
   </link>
 
   <link name="board_conn_4">
@@ -32,7 +31,6 @@
         <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/board_conn_4.STL" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
-    <!-- <inertial><mass value="1"/><origin xyz="0 0 0"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial> -->
   </link>
 
   <link name="coin_holder">
@@ -49,7 +47,6 @@
         <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntjes_houder.STL" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
-    <!-- <inertial><mass value="0.5"/><origin xyz="0 0 0"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial> -->
   </link>
 
   <link name="coin">
@@ -62,14 +59,14 @@
       </material>
     </visual>
     <collision>
+      <origin xyz="0.0170 0.0170 0.006" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntje.STL" scale="0.001 0.001 0.001"/>
+        <cylinder radius="0.0165" length="0.010" />
       </geometry>
     </collision>
-    <!-- <inertial><mass value="0.1"/><origin xyz="0 0 0"/><inertia ixx="0.01" iyy="0.01" izz="0.01" ixy="0" ixz="0" iyz="0"/></inertial> -->
   </link>
 
-  Fix all parts to base_conn_4; adjust relative poses
+  <!-- Fix all parts to base_conn_4; adjust relative poses -->
   <joint name="board_to_base" type="fixed">
     <parent link="base_conn_4"/>
     <child link="board_conn_4"/>

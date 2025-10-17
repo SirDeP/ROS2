@@ -5,8 +5,6 @@
   <joint name="base_joint" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
-    <!-- <child link="base_conn_4"/> -->
-
     <origin rpy="0 0 0" xyz="0.0 0.0 0.00"/>
   </joint>
 
@@ -33,7 +31,6 @@
       <origin xyz="-0.06375 0 0.03" rpy="0 0 0" />
       <geometry>
         <box size="0.23 0.12 0.06" />
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/base_link.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -56,8 +53,6 @@
       <origin xyz="0 0 0.09" rpy="0 0 0" />
       <geometry>
         <cylinder radius="0.05" length="0.05" />
-        <!-- <box size="0.1 0.22 0.075" /> -->
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/L1.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -87,7 +82,6 @@
       <origin xyz="-0.015 -0.075 0" rpy="0 0 0" />
       <geometry>
         <cylinder radius="0.03" length="0.2" />
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/L2.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -117,7 +111,6 @@
       <origin xyz="0.020 -0.015 0" rpy="0 0 0" />
       <geometry>
         <box size="0.1 0.11 0.07" />
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/L3.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -147,7 +140,6 @@
       <origin xyz="0.01 0 -0.097" rpy="0 0 0" />
       <geometry>
         <box size="0.07 0.06 0.050" />
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/L4.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -177,7 +169,6 @@
       <origin xyz="0 -0.005 0" rpy="1.5707963267949 0 3.14159265358979" />
       <geometry>
         <cylinder radius="0.03" length="0.08" />
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/L5.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -207,7 +198,6 @@
       <origin xyz="0.01 0 -0.0558" rpy="0 0 0" />
       <geometry>
         <box size="0.08 0.05 0.04" />
-        <!-- <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/L6.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -327,7 +317,6 @@
     <selfCollide>true</selfCollide>
   </gazebo>
 
-
   <!-- ================================ -->
   <!--            CONNECT 4             -->
   <!-- ================================ -->
@@ -411,9 +400,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0.0170 0.0170 0.006" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntje.STL" scale="0.001 0.001 0.001"/>
+        <cylinder radius="0.0165" length="0.010" />
       </geometry>
     </collision>
     <inertial>
