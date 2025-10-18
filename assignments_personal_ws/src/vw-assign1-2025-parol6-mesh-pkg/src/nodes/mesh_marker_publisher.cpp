@@ -1,11 +1,6 @@
-#include "rclcpp/rclcpp.hpp"
-#include "visualization_msgs/msg/marker.hpp"
+#include "mesh_marker_publisher.hpp"
 
-class MeshMarkerPublisher : public rclcpp::Node
-{
-
-public:
-    MeshMarkerPublisher(/* args */) : Node("mesh_marker_publisher")
+MeshMarkerPublisher::MeshMarkerPublisher() : Node("mesh_marker_publisher")
     {
         this->declare_parameter("board_location_x", 0.1);
         this->declare_parameter("board_location_y", 0.0);
@@ -37,31 +32,6 @@ public:
             std::bind(&MeshMarkerPublisher::publish_marker, this));
     }
 
-private:
-    rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_pub_;
-    rclcpp::TimerBase::SharedPtr timer_;
-
-    int marker_x_ = 0;
-
-    double board_location_x_;
-    double board_location_y_;
-    double board_location_z_;
-
-    double coin_holder_location_x_;
-    double coin_holder_location_y_;
-    double coin_holder_location_z_;
-
-    double coin_location_x_;
-    double coin_location_y_;
-    double coin_location_z_;
-
-    void publish_marker();
-
-    void publish_coin();
-    void publish_coin_holder();
-    void publish_board();
-    void publish_board_base();
-};
 
 void MeshMarkerPublisher::publish_marker()
 {
@@ -207,10 +177,3 @@ void MeshMarkerPublisher::publish_board_base()
     marker_pub_->publish(board_base);
 }
 
-int main(int argc, char **argv)
-{
-    rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<MeshMarkerPublisher>());
-    rclcpp::shutdown();
-    return 0;
-}

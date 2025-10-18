@@ -13,7 +13,11 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-add_executable(pub src/pub.cpp)
+add_executable(pub
+    src/main.cpp
+    src/nodes/static_transform_publisher.cpp
+)
+
 ament_target_dependencies(pub rclcpp tf2 tf2_ros geometry_msgs)
 
 

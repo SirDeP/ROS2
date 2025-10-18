@@ -1,11 +1,6 @@
-#include "rclcpp/rclcpp.hpp"
-#include "geometry_msgs/msg/transform_stamped.hpp"
-#include "tf2/LinearMath/Quaternion.h"
-#include "tf2_ros/static_transform_broadcaster.h"
+#include "static_transform_publisher.hpp"
 
-class StaticTfNode : public rclcpp::Node {
-public:
-  StaticTfNode() : Node("connect4_static_tf") {
+StaticTfNode::StaticTfNode() : Node("connect4_static_tf") {
     double x = declare_parameter<double>("x", 0.60);
     double y = declare_parameter<double>("y", 0.00);
     double z = declare_parameter<double>("z", 0.00);
@@ -23,10 +18,9 @@ public:
     broadcaster_->sendTransform(transforms);
 
     RCLCPP_INFO(get_logger(), "Published %zu static transforms for Connect4", transforms.size());
-  }
+}
 
-private:
-  geometry_msgs::msg::TransformStamped createTransform(
+geometry_msgs::msg::TransformStamped StaticTfNode::createTransform(
       const std::string& parent, const std::string& child,
       double x, double y, double z, double roll, double pitch, double yaw) {
 
@@ -46,14 +40,4 @@ private:
     t.transform.rotation.w = q.w();
 
     return t;
-  }
-
-  std::shared_ptr<tf2_ros::StaticTransformBroadcaster> broadcaster_;
-};
-
-int main(int argc, char** argv) {
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<StaticTfNode>());
-  rclcpp::shutdown();
-  return 0;
 }
