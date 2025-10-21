@@ -11,15 +11,15 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp)
 find_package(visualization_msgs)
 
-add_executable(mesh_pub
-    src/main.cpp
-    src/nodes/mesh_marker_publisher.cpp
+add_executable(vw-assign1-2025-mesh_marker_publisher-node
+    src/vw-assign1-mesh_marker_publisher-node/main.cpp
+    src/vw-assign1-mesh_marker_publisher-node/nodes/mesh_marker_publisher.cpp
 )
 
-ament_target_dependencies(mesh_pub rclcpp visualization_msgs)
+ament_target_dependencies(vw-assign1-2025-mesh_marker_publisher-node rclcpp visualization_msgs)
 
 install(TARGETS
-  mesh_pub
+  vw-assign1-2025-mesh_marker_publisher-node
   DESTINATION lib/${PROJECT_NAME}
 )
 

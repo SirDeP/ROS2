@@ -25,7 +25,7 @@
   </node>
 
   <!-- Static TF publisher for all Connect4 parts -->
-  <node pkg="vw-assign1-2025-parol6-static-pkg" exec="pub" name="connect4_static_tf">
+  <node pkg="vw-assign1-2025-parol6-static-pkg" exec="vw-assign1-2025-static_transform_publisher-node" name="connect4_static_tf">
     <param name="x" value="$(var x)"/>
     <param name="y" value="$(var y)"/>
     <param name="z" value="$(var z)"/>

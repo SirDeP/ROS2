@@ -55,7 +55,7 @@
         <mesh filename="package://vw-assign1-2025-parol6-fixed-pkg/meshes/muntje.STL" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="">
-        <color rgba="1 0 0 1" />
+        <color rgba="1 1 0 1" />
       </material>
     </visual>
     <collision>
