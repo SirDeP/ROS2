@@ -13,16 +13,16 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-add_executable(vw-assign1-2025-static_tf_publisher-node
+add_executable(vw-assign1-2025-static_transform_publisher-node
     src/vw-assign1-static_transform_publisher-node/main.cpp
     src/vw-assign1-static_transform_publisher-node/nodes/static_transform_publisher.cpp
 )
 
-ament_target_dependencies(vw-assign1-2025-static_tf_publisher-node rclcpp tf2 tf2_ros geometry_msgs)
+ament_target_dependencies(vw-assign1-2025-static_transform_publisher-node rclcpp tf2 tf2_ros geometry_msgs)
 
 
 install(TARGETS
-  vw-assign1-2025-static_tf_publisher-node
+  vw-assign1-2025-static_transform_publisher-node
   DESTINATION lib/${PROJECT_NAME}
 )
 
