@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(vw-assign2-2025-usb-cam-reader-pkg)
+project(vw-assign2-2025-usb-cam-sub-pkg)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -10,6 +10,28 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+add_executable(usb_cam_sub_node src/vw-assign2-2025-usb-cam-sub-node/main.cpp src/vw-assign2-2025-usb-cam-sub-node/node/UsbCamSub.cpp)
+
+ament_target_dependencies(usb_cam_sub_node
+  rclcpp
+  sensor_msgs
+  cv_bridge
+  OpenCV
+)
+
+install(TARGETS
+  usb_cam_sub_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY launch rviz
+  DESTINATION share/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
