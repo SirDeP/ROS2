@@ -11,6 +11,8 @@
         <param name="circle_radius" value="100" />
         <param name="circle_thickness" value="25" />
         <param name="circle_color" value="[0, 255, 0]" />
+        <param name="canny_threshold1" value="100" />
+        <param name="canny_threshold2" value="200" />
     </node>
     <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_config_path)"/>
     <!-- <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_config_path)" /> -->

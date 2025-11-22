@@ -9,10 +9,14 @@ UsbCamSub::UsbCamSub() : Node("usb_cam_reader_node")
     this->declare_parameter<int>("circle_radius", 50);
     this->declare_parameter<int>("circle_thickness", 10);
     this->declare_parameter("circle_color", std::vector<long>{0, 0, 255});
+    this->declare_parameter<int>("canny_threshold1", 100);
+    this->declare_parameter<int>("canny_threshold2", 200);
 
     edge_detection_choice_  = this->get_parameter("edge_detection_choice").as_int();
     circle_radius_          = this->get_parameter("circle_radius").as_int();
     circle_thickness_       = this->get_parameter("circle_thickness").as_int();
+    canny_threshold1_      = this->get_parameter("canny_threshold1").as_int();
+    canny_threshold2_      = this->get_parameter("canny_threshold2").as_int();
 
     // Get color parameter and convert from vector<long> to vector<uint8_t>
     std::vector<long> color_param = this->get_parameter("circle_color").as_integer_array();
@@ -27,10 +31,69 @@ UsbCamSub::UsbCamSub() : Node("usb_cam_reader_node")
         RCLCPP_WARN(this->get_logger(), "Invalid circle_color size, using default [0, 0, 255]");
     }
 
+        // register parameter change callback
+    param_callback_handle_ = this->add_on_set_parameters_callback(
+        std::bind(&UsbCamSub::on_set_parameters_callback, this, std::placeholders::_1)
+    );
+
     subscriber_camera_ = this->create_subscription<sensor_msgs::msg::Image>(
       "image_raw", 5,
       std::bind(&UsbCamSub::subscriber_camera_callback, this, std::placeholders::_1));
     publisher_camera_ = this->create_publisher<sensor_msgs::msg::Image>("gray_image", 5);
+}
+
+rcl_interfaces::msg::SetParametersResult UsbCamSub::on_set_parameters_callback(const std::vector<rclcpp::Parameter> &params)
+{
+    rcl_interfaces::msg::SetParametersResult result;
+    result.successful = true;
+    result.reason = "success";
+    // std::lock_guard<std::mutex> lock(params_mutex_);
+    for (const auto &p : params)
+    {
+        switch (runtime_hash(p.get_name()))
+        {
+        case constexpr_hash("edge_detection_choice"):
+            edge_detection_choice_ = p.as_int();
+            break;
+        case constexpr_hash("circle_radius"):
+            circle_radius_ = p.as_int();
+            break;
+        case constexpr_hash("circle_thickness"):
+            circle_thickness_ = p.as_int();
+            break;
+        case constexpr_hash("circle_color"):
+            try {
+                auto arr = p.as_integer_array(); // vector<int64_t>
+                if (arr.size() == 3) {
+                    circle_color_[0] = static_cast<uint8_t>(arr[0]);
+                    circle_color_[1] = static_cast<uint8_t>(arr[1]);
+                    circle_color_[2] = static_cast<uint8_t>(arr[2]);
+                } else {
+                    result.successful = false;
+                    result.reason = "circle_color must be an array of 3 integers";
+                }
+            } catch (...) {
+                result.successful = false;
+                result.reason = "failed reading circle_color";
+            }
+            break;
+        case constexpr_hash("canny_threshold1"):
+            canny_threshold1_ = p.as_int();
+            break;
+        case constexpr_hash("canny_threshold2"):
+            canny_threshold2_ = p.as_int();
+            break;
+        default:
+            break;
+        }
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Parameters updated: edge=%d radius=%d thickness=%d color=[%d,%d,%d] canny_thresholds=[%d,%d]",
+                edge_detection_choice_, circle_radius_, circle_thickness_,
+                circle_color_[0], circle_color_[1], circle_color_[2],
+                canny_threshold1_, canny_threshold2_);
+
+    return result;
 }
 
 void UsbCamSub::subscriber_camera_callback(const sensor_msgs::msg::Image::SharedPtr msg)
@@ -75,13 +138,12 @@ void UsbCamSub::image_processing()
         {
             case 1: {
                 // bottom right use sobel edge detection
-                cv::Mat gray, grad_x, grad_y, abs_grad_x, abs_grad_y;
+                cv::Mat gray, grad_x, grad_y, abs_grad_x, abs_grad_y, edge;
                 cv::cvtColor(bottom_right, gray, cv::COLOR_BGR2GRAY);
                 cv::Sobel(gray, grad_x, CV_64F, 1, 0, 3);
                 cv::Sobel(gray, grad_y, CV_64F, 0, 1, 3);
                 cv::convertScaleAbs(grad_x, abs_grad_x);
                 cv::convertScaleAbs(grad_y, abs_grad_y);
-                cv::Mat edge;
                 cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, edge);
                 cv::cvtColor(edge, bottom_right, cv::COLOR_GRAY2BGR);
                 break;
@@ -90,7 +152,7 @@ void UsbCamSub::image_processing()
                 // bottom right use canny edge detection
                 cv::Mat gray_canny, edges;
                 cv::cvtColor(bottom_right, gray_canny, cv::COLOR_BGR2GRAY);
-                cv::Canny(gray_canny, edges, 100, 200);
+                cv::Canny(gray_canny, edges, canny_threshold1_, canny_threshold2_);
                 cv::cvtColor(edges, bottom_right, cv::COLOR_GRAY2BGR);
                 break;
             }
