@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot name="connect4" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <link name="board">
+    <visual>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-static-pkg/meshes/game.STL" scale="0.0001 0.0001 0.0001"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://vw-assign1-2025-parol6-static-pkg/meshes/game.STL" scale="0.0001 0.0001 0.0001"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
