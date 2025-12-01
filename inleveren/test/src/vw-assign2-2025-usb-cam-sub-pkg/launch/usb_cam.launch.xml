@@ -1,7 +1,7 @@
 <launch>
     <let name="rviz_config_path"
         value="$(find-pkg-share vw-assign2-2025-usb-cam-sub-pkg)/rviz/config.rviz" />
-    <node pkg="usb_cam_vw_pkg" exec="usb_cam_vw_pkg_node_exe" name="usb_cam_node" output="screen">
+    <node pkg="usb_cam_vw" exec="usb_cam_vw_node_exe" name="usb_cam_node" output="screen">
         <param name="video_device" value="/dev/video0" />
         <param name="image_width" value="1280" />
         <param name="image_height" value="720" />

@@ -1,35 +1,22 @@
 # README
-Here is a short readme about the three packages with different implementations of adding objects to a RVIZ environment.
 
-They use fixed, mesh publisher and static transform methods respectively and can be identified by their name
+Here is a short readme about the package usb camera subscriber package
 
-Collision using simple geometry was added to the robot and in the fixed and static transform packages also to the coin. Collision for the board was left on mesh as the STL's have complex geometry.
-
-With the mesh publisher package only the robot has collisions as i could find no way to add colision to the mesh markers themselves.
+This package will use raw camera data provided by the `usb_cam` package, tranform it using opencv and display it in rviz
 
 ## Configuration
 
-- Fixed package:
-    - To configure the location of the objects for this node the locations need to be changed in the URDF xacro file directly.
-- Mesh and Static transform packages:
-    - To configure the location of the objects for this node the specific parameters can be used.
-    - Parameters are configured in the launch xml (`display.launch.xml`) located in the respective launch folder of the package that you want to configure.
+To configure the package you can edit the launch file located inside of the `vw-assign2-2025-usb-cam-sub-pkg` package folder: [usb_cam.launch.xml](src/vw-assign2-2025-usb-cam-sub-pkg/launch/usb_cam.launch.xml)
+
+Launching using this file preconfigures certain values into the parameters, but it will also launch a parameter configuration window where changes have effect on the running program.
+
+The runtime changes only work for the `usb_cam_reader_node` and not for the `usb_cam` driver. The video device thus has to be configured before launching the program
 
 ## Build
+
 To build the packages run the `colcon build` command in the root directory of the workspace.
 
 ## Run
-To run the nodes use the `ros2 launch` command.
 
-Robot Only Package
-- `ros2 launch vw-assign1-2025-parol6-robot-pkg display.launch.xml`
-
-Fixed Package:
-- `ros2 launch vw-assign1-2025-parol6-fixed-pkg display.launch.xml`
-
-Mesh Package:
-- `ros2 launch vw-assign1-2025-parol6-mesh-pkg display.launch.xml`
-
-Static Transform Package:
-- `ros2 launch vw-assign1-2025-parol6-static-pkg display.launch.xml`
-
+To run the node use the `ros2 launch` command.
+- `ros2 launch vw-assign2-2025-usb-cam-sub-pkg usb_cam.launch.xml`
