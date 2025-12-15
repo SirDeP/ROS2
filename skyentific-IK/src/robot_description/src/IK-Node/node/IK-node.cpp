@@ -7,6 +7,7 @@ JointPublisherNode::JointPublisherNode() : Node("ik_node")
     // Robot parameters from URDF
     this->declare_parameter<double>("L1", 0.225);  // joint_2 to joint_3
     this->declare_parameter<double>("L2", 0.200);  // joint_3 to joint_4 (URDF: x=0.200)
+    this->declare_parameter<double>("gripper_offset", 0.193);  // joint_5 to gripper center (0.0915 + 0.1015)
     this->declare_parameter<double>("x", 0.2);
     this->declare_parameter<double>("y", 0.00);
     this->declare_parameter<double>("z", 0.3);
@@ -29,6 +30,7 @@ JointPublisherNode::JointPublisherNode() : Node("ik_node")
 
     L1 = this->get_parameter("L1").as_double();
     L2 = this->get_parameter("L2").as_double();
+    gripper_offset_ = this->get_parameter("gripper_offset").as_double();
 
     set_param_callback_handle_ = this->add_on_set_parameters_callback(std::bind(
         &JointPublisherNode::OnSetParametersCallback,
@@ -92,10 +94,16 @@ void JointPublisherNode::inverseKinematics(double /*x*/, double /*z*/)
     theta_1_ = atan2(y_, x_);
 
     // ================================================================
+    // Adjust target position to account for gripper offset
+    // The gripper points down, so we add the offset to z
+    // ================================================================
+    double adjusted_z = z_ + gripper_offset_;
+
+    // ================================================================
     // Convert 3D target to 2D IK plane
     // ================================================================
     double targetX = sqrt(x_ * x_ + y_ * y_);  // radial distance
-    double targetY = z_ - shoulder_height;      // height above shoulder
+    double targetY = adjusted_z - shoulder_height;      // height above shoulder
 
     // ================================================================
     // STEP 1: Calculate θ₂ (Elbow angle) FIRST

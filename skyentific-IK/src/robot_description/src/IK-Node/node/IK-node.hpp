@@ -23,6 +23,7 @@ private:
     double theta_5_;
     double theta_6_;
     double L1, L2;
+    double gripper_offset_;
     double x_, y_, z_;
 
     OnSetParametersCallbackHandle::SharedPtr set_param_callback_handle_;
