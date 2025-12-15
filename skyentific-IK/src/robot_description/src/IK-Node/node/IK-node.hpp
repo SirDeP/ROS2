@@ -5,6 +5,8 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/buffer.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
+#include <algorithm> // for std::clamp
+#include <cmath>     // for sqrt, atan2
 
 class JointPublisherNode : public rclcpp::Node
 {
