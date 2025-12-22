@@ -164,6 +164,8 @@ Eigen::Vector3d CCDNode::forwardKinematics(const std::vector<double>& joint_angl
     double q2 = joint_angles[1];  // L2 - Shoulder 
     double q3 = joint_angles[2];  // L3 - Elbow 
     double q4 = joint_angles[3];  // L4 - Wrist pitch
+    double q5 = joint_angles[4];  // L5 - Wrist roll
+    double q6 = joint_angles[5];  // L6 - Gripper rotation
     
     // Helper lambda for RPY to rotation matrix
     auto rpy_to_matrix = [](double roll, double pitch, double yaw) {
@@ -233,11 +235,31 @@ Eigen::Vector3d CCDNode::forwardKinematics(const std::vector<double>& joint_angl
     T_L4_to_L5.block<3,3>(0,0) = rpy_to_matrix(-M_PI/2, 0, 0);
     T = T * T_L4_to_L5;
     
-    // Add gripper offset along Z axis in L5 frame
-    Eigen::Vector4d gripper_offset(0, 0, 0.0628, 1);
-    Eigen::Vector4d end_effector_homogeneous = T * gripper_offset;
+    // L5 joint: rotation around -Z axis by q5 (axis="0 0 -1")
+    Eigen::Matrix4d T_L5 = Eigen::Matrix4d::Identity();
+    T_L5.block<3,3>(0,0) = Eigen::AngleAxisd(-q5, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    T = T * T_L5;
     
-    return end_effector_homogeneous.head<3>();
+    // L5 to L6: origin xyz="0 0 0" rpy="1.5708 0 0"
+    Eigen::Matrix4d T_L5_to_L6 = Eigen::Matrix4d::Identity();
+    T_L5_to_L6.block<3,3>(0,0) = rpy_to_matrix(M_PI/2, 0, 0);
+    T = T * T_L5_to_L6;
+    
+    // L6 joint: rotation around -Z axis by q6 (axis="0 0 -1")
+    Eigen::Matrix4d T_L6 = Eigen::Matrix4d::Identity();
+    T_L6.block<3,3>(0,0) = Eigen::AngleAxisd(-q6, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+    T = T * T_L6;
+    
+    // The end effector is at the origin of L6 frame (gripper attachment point)
+    Eigen::Vector4d end_effector_homogeneous(0, 0, 0, 1);
+    end_effector_homogeneous = T * end_effector_homogeneous;
+    
+    // Debug: print Z value breakdown
+    Eigen::Vector3d pos = end_effector_homogeneous.head<3>();
+    // RCLCPP_INFO(this->get_logger(), "FK Z breakdown: q1=%.3f q2=%.3f q3=%.3f q4=%.3f -> (%.3f, %.3f, %.3f)", 
+    //             q1, q2, q3, q4, pos.x(), pos.y(), pos.z());
+    
+    return pos;
 }
 
 bool CCDNode::ccdIteration(const Eigen::Vector3d& target, std::vector<double>& joint_angles, int joint_idx)
@@ -407,6 +429,11 @@ void CCDNode::cyclicCoordinateDescent(double target_x, double target_y, double t
     // Use current joint angles as starting point (not initial values)
     std::vector<double> joint_angles = {theta_1_, theta_2_, theta_3_, theta_4_, theta_5_, theta_6_};
     
+    // Analytically solve for base joint angle (joint 0)
+    // The base joint rotates around Z, so it should point towards the target in XY plane
+    joint_angles[0] = atan2(target_y, target_x);
+    joint_angles[0] = std::clamp(joint_angles[0], -1.7, 1.7);
+    
     int iteration = 0;
     double error = std::numeric_limits<double>::max();
     double prev_error = error;
@@ -421,8 +448,9 @@ void CCDNode::cyclicCoordinateDescent(double target_x, double target_y, double t
     
     while (iteration < max_iterations_ && error > tolerance_) {
         // CCD works backwards from end-effector to base
-        // For Parol6, we focus on joints 0-3 (base, shoulder, elbow, wrist)
-        for (int joint_idx = 3; joint_idx >= 0; joint_idx--) {
+        // For Parol6, we solve joints 1-3 (shoulder, elbow, wrist)
+        // Joint 0 (base) is already solved analytically above
+        for (int joint_idx = 3; joint_idx >= 1; joint_idx--) {
             bool changed = ccdIteration(target, joint_angles, joint_idx);
             if (!changed) {
                 RCLCPP_DEBUG(this->get_logger(), "Joint %d did not change", joint_idx);
