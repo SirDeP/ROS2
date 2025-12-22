@@ -1,0 +1,38 @@
+cmake_minimum_required(VERSION 3.8)
+project(parol6)
+
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(Eigen3 REQUIRED)
+
+set(dependencies
+  rclcpp
+  tf2_ros
+  geometry_msgs
+  sensor_msgs
+)
+
+add_executable(ik_node src/IK-Node/main.cpp src/IK-Node/node/IK-node.cpp)
+ament_target_dependencies(ik_node ${dependencies})
+
+add_executable(ccd_node src/CCD/main.cpp src/CCD/node/CCD-node.cpp)
+ament_target_dependencies(ccd_node ${dependencies})
+target_include_directories(ccd_node PUBLIC ${EIGEN3_INCLUDE_DIRS})
+
+install(TARGETS
+  ik_node
+  ccd_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+
+
+install(
+  DIRECTORY launch meshes urdf rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+
+ament_package()

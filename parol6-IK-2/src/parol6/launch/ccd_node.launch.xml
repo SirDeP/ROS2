@@ -1,0 +1,28 @@
+<launch>
+  <let name="urdf_path" value="$(find-pkg-share parol6)/urdf/PAROL6.urdf.xacro" />
+  <let name="rviz_config_path" value="$(find-pkg-share parol6)/rviz/urdf_config.rviz" />
+  <node pkg="robot_state_publisher" exec="robot_state_publisher">
+    <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+  </node>
+  <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_config_path)" />
+  <node pkg="parol6" exec="ccd_node" name="ccd_node" output="screen">
+    <param name="L0" value="0.11050" />
+    <param name="L1" value="0.02342" />
+    <param name="L2" value="0.18000" />
+    <param name="L3" value="0.04350" />
+    <param name="L4" value="0.17635" />
+    <param name="L5" value="0.06280" />
+    <param name="L6" value="0.04525" />
+    <param name="x" value="0.2" />
+    <param name="y" value="0.0" />
+    <param name="z" value="0.3" />
+    <param name="theta_1" value="0.0" />
+    <param name="theta_2" value="0.0" />
+    <param name="theta_3" value="0.0" />
+    <param name="theta_4" value="0.0" />
+    <param name="theta_5" value="0.0" />
+    <param name="theta_6" value="0.0" />
+    <param name="max_iterations" value="1000" />
+    <param name="tolerance" value="0.001" />
+  </node>
+</launch>
